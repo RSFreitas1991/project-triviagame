@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
-/* import PropTypes from 'prop-types'; */
-import newAction from '../actions';
+
+import { newAction, fetchToken } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -15,6 +17,12 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.nameValidation = this.nameValidation.bind(this);
+    this.getToken = this.getToken.bind(this);
+  }
+
+  getToken() {
+    const { sendToken } = this.props;
+    sendToken();
   }
 
   handleChange({ target }) {
@@ -99,7 +107,7 @@ class Login extends React.Component {
           <button
             type="button"
             data-testid="btn-play"
-            onClick={ () => console.log('cliquei') }
+            onClick={ this.getToken }
             disabled={ submitButton }
           >
             Play
@@ -110,11 +118,17 @@ class Login extends React.Component {
   }
 }
 
+Login.propTypes = {
+  sendToken: PropTypes.func.isRequired,
+};
+
 /* Login.propTypes = {
   myFirstDispatch: PropTypes.func.isRequired,
 }; */
 
 const mapDispatchToProps = (dispatch) => ({
-  myFirstDispatch: (state) => dispatch(newAction(state, 'SAVE_EMAIL')) });
+  myFirstDispatch: (state) => dispatch(newAction(state, 'SAVE_EMAIL')),
+  sendToken: () => dispatch(fetchToken()),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
