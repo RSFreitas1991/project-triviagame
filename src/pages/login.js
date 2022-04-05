@@ -1,9 +1,7 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
-import logo from '../trivia.png';
 
 import { newAction, fetchToken } from '../actions';
 
@@ -89,43 +87,41 @@ class Login extends React.Component {
   render() {
     const { email, playerName, submitButton } = this.state;
     return (
-      <>
-        <div className="main">
-          <fieldset className="fieldset">
-            Email do Gravatar:
-            <input
-              type="email"
-              name="email"
-              data-testid="input-gravatar-email"
-              onChange={ this.handleChange }
-              value={ email }
-              required
-            />
-            Nome do Jogador:
-            <input
-              type="text"
-              name="playerName"
-              data-testid="input-player-name"
-              onChange={ this.handleChange }
-              value={ playerName }
-            />
-            <button
-              type="button"
-              data-testid="btn-play"
-              onClick={ this.getToken }
-              disabled={ submitButton }
-            >
-              Play
-            </button>
-          </fieldset>
-        </div>
-        <div className="App">
-          {/* <Login /> */}
-          <header className="App-header">
-            <img src={ logo } className="App-logo" alt="logo" />
-          </header>
-        </div>
-      </>
+      <div className="main">
+        <fieldset className="fieldset">
+          Email do Gravatar:
+          <input
+            type="email"
+            name="email"
+            data-testid="input-gravatar-email"
+            onChange={ this.handleChange }
+            value={ email }
+            required
+          />
+          Nome do Jogador:
+          <input
+            type="text"
+            name="playerName"
+            data-testid="input-player-name"
+            onChange={ this.handleChange }
+            value={ playerName }
+          />
+          <button
+            type="button"
+            data-testid="btn-play"
+            onClick={ this.getToken }
+            disabled={ submitButton }
+          >
+            Play
+          </button>
+        </fieldset>
+        <button
+          type="button"
+          data-testid="btn-settings"
+        >
+          <Link to="/settings">Configurações</Link>
+        </button>
+      </div>
     );
   }
 }
