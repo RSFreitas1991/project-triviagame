@@ -4,20 +4,16 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/login';
 import GameScreen from './pages/gameScreen';
+import Settings from './pages/settings';
 
 export default function App() {
   return (
-    <>
+    <div>
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/gamescreen" component={ GameScreen } />
+        <Route exact path="/settings" component={ Settings } />
       </Switch>
-      {/* <div className="App"> */}
-      {/* <Login /> */}
-      {/* <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-      </header>
-    </div> */}
-    </>
+    </div>
   );
 }
