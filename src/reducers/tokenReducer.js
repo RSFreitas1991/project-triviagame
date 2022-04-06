@@ -1,6 +1,6 @@
 import { SAVE_TOKEN } from '../actions';
 
-const INITIAL_STATE = '';
+const INITIAL_STATE = {};
 
 function token(state = INITIAL_STATE, action) {
   switch (action.type) {

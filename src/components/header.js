@@ -6,6 +6,7 @@ import md5 from 'crypto-js/md5';
 class Header extends Component {
   constructor() {
     super();
+
     this.state = {
       points: 0,
     };
