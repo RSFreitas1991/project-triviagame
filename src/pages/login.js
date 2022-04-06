@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { newAction, fetchToken } from '../actions';
+import { newAction, fetchToken, fetchQuestions } from '../actions';
 import { SAVE_EMAIL, SAVE_PLAYERNAME } from '../reducers/main';
 
 class Login extends React.Component {
@@ -23,11 +23,13 @@ class Login extends React.Component {
   }
 
   getToken() {
-    const { sendToken, history, saveEmailAndPlayerName } = this.props;
+    const { sendToken, history, saveEmailAndPlayerName,
+      getQuestions, token } = this.props;
     const { email, playerName } = this.state;
     sendToken();
     saveEmailAndPlayerName(email, SAVE_EMAIL);
     saveEmailAndPlayerName(playerName, SAVE_PLAYERNAME);
+    getQuestions(token);
     history.push('/gamescreen');
   }
 
@@ -136,6 +138,8 @@ Login.propTypes = {
   }).isRequired,
   sendToken: PropTypes.func.isRequired,
   saveEmailAndPlayerName: PropTypes.func.isRequired,
+  getQuestions: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -143,6 +147,11 @@ const mapDispatchToProps = (dispatch) => ({
     state, type,
   )),
   sendToken: () => dispatch(fetchToken()),
+  getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => ({
+  token: state.token.token,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
