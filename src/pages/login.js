@@ -8,6 +8,7 @@ import { SAVE_EMAIL, SAVE_PLAYERNAME } from '../reducers/main';
 class Login extends React.Component {
   constructor() {
     super();
+
     this.state = {
       email: '',
       playerName: '',
@@ -15,6 +16,7 @@ class Login extends React.Component {
       nameValidation: false,
       submitButton: true,
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.nameValidation = this.nameValidation.bind(this);
     this.getToken = this.getToken.bind(this);
