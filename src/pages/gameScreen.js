@@ -11,6 +11,7 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
+      answerSelected: false,
     };
   }
 
@@ -29,11 +30,18 @@ class GameScreen extends Component {
           data-testid={
             answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
           }
+          onClick={ () => this.selectAnswer() }
         >
           { answer }
         </button>
       ))
     );
+  }
+
+  selectAnswer = () => {
+    this.setState({
+      answerSelected: true,
+    });
   }
 
   handleClick = () => {
@@ -44,7 +52,7 @@ class GameScreen extends Component {
 
   questionRender() {
     const { questions } = this.props;
-    const { index } = this.state;
+    const { index, answerSelected } = this.state;
     return (
       <div>
         <h4
@@ -61,6 +69,17 @@ class GameScreen extends Component {
           {
             this.shuffleAnswers(questions[index])
           }
+        </div>
+        <div>
+          {answerSelected && (
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     );
