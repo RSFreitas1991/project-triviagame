@@ -11,7 +11,6 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
-      // isQuestionReady: false,
     };
   }
 
@@ -36,21 +35,6 @@ class GameScreen extends Component {
       ))
     );
   }
-
-  // fetchGame = async () => {
-  //   const { token } = this.props;
-
-  //   this.setState({
-  //     loading: true,
-  //   });
-
-  //   const fetchAPI = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
-  //   const data = await fetchAPI.json();
-
-  //   this.setState({
-  //     results: data.results,
-  //   });
-  // }
 
   handleClick = () => {
     this.setState((prev) => ({
@@ -105,12 +89,10 @@ class GameScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // token: state.token.token,
   questions: state.questions.questions,
 });
 
 GameScreen.propTypes = {
-  // token: PropTypes.string.isRequired,
   questions: PropTypes.instanceOf(Array).isRequired,
 };
 
