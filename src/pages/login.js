@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { newAction, fetchToken } from '../actions';
+import { SAVE_EMAIL, SAVE_PLAYERNAME } from '../reducers/main';
 
 class Login extends React.Component {
   constructor() {
@@ -21,9 +21,11 @@ class Login extends React.Component {
   }
 
   getToken() {
-    const { sendToken, history } = this.props;
-
+    const { sendToken, history, saveEmailAndPlayerName } = this.props;
+    const { email, playerName } = this.state;
     sendToken();
+    saveEmailAndPlayerName(email, SAVE_EMAIL);
+    saveEmailAndPlayerName(playerName, SAVE_PLAYERNAME);
     history.push('/gamescreen');
   }
 
@@ -131,14 +133,13 @@ Login.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   sendToken: PropTypes.func.isRequired,
+  saveEmailAndPlayerName: PropTypes.func.isRequired,
 };
 
-/* Login.propTypes = {
-  myFirstDispatch: PropTypes.func.isRequired,
-}; */
-
 const mapDispatchToProps = (dispatch) => ({
-  myFirstDispatch: (state) => dispatch(newAction(state, 'SAVE_EMAIL')),
+  saveEmailAndPlayerName: (state, type) => dispatch(newAction(
+    state, type,
+  )),
   sendToken: () => dispatch(fetchToken()),
 });
 
