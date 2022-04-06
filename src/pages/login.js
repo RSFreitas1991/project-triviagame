@@ -28,7 +28,6 @@ class Login extends React.Component {
       getQuestions(token);
     }
     if (isQuestionsSaved === true) {
-      console.log('executei');
       history.push('/gamescreen');
     }
   }

@@ -106,7 +106,7 @@ class GameScreen extends Component {
 
 const mapStateToProps = (state) => ({
   // token: state.token.token,
-  questions: state.token.questions,
+  questions: state.questions.questions,
 });
 
 GameScreen.propTypes = {
