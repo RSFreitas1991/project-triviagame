@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import Header from '../components/header';
 
 class GameScreen extends Component {
   render() {
     return (
-      <h1>
-        Tela do jogo
-      </h1>
+      <Header />
     );
   }
 }
