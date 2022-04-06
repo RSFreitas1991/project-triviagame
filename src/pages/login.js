@@ -22,15 +22,22 @@ class Login extends React.Component {
     this.getToken = this.getToken.bind(this);
   }
 
+  componentDidUpdate() {
+    const { isTokenSaved, token, getQuestions, isQuestionsSaved, history } = this.props;
+    if (isTokenSaved === true) {
+      getQuestions(token);
+    }
+    if (isQuestionsSaved === true) {
+      history.push('/gamescreen');
+    }
+  }
+
   getToken() {
-    const { sendToken, history, saveEmailAndPlayerName,
-      getQuestions, token } = this.props;
+    const { sendToken, saveEmailAndPlayerName } = this.props;
     const { email, playerName } = this.state;
     sendToken();
     saveEmailAndPlayerName(email, SAVE_EMAIL);
     saveEmailAndPlayerName(playerName, SAVE_PLAYERNAME);
-    getQuestions(token);
-    history.push('/gamescreen');
   }
 
   handleChange({ target }) {
@@ -140,6 +147,8 @@ Login.propTypes = {
   saveEmailAndPlayerName: PropTypes.func.isRequired,
   getQuestions: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
+  isTokenSaved: PropTypes.bool.isRequired,
+  isQuestionsSaved: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -152,6 +161,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   token: state.token.token,
+  isTokenSaved: state.token.isTokenSaved,
+  isQuestionsSaved: state.token.isQuestionsSaved,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

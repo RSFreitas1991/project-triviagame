@@ -22,8 +22,6 @@ class GameScreen extends Component {
 
     //  https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
-    console.log(shuffle);
-
     return (
       shuffle.map((answer, index) => (
         <button
@@ -60,8 +58,31 @@ class GameScreen extends Component {
     }));
   }
 
-  render() {
+  questionRender() {
+    const { questions } = this.props;
     const { index } = this.state;
+    return (
+      <div>
+        <h4
+          data-testid="question-category"
+        >
+          {questions[index].category}
+        </h4>
+        <h4
+          data-testid="question-text"
+        >
+          {questions[index].question}
+        </h4>
+        <div data-testid="answer-options">
+          {
+            this.shuffleAnswers(questions[index])
+          }
+        </div>
+      </div>
+    );
+  }
+
+  render() {
     const { questions } = this.props;
     return (
       <div>
@@ -71,32 +92,12 @@ class GameScreen extends Component {
             (
               questions.length > 0
               && (
-                <>
-                  <h4
-                    data-testid="question-category"
-                  >
-                    {questions[index].category}
-                  </h4>
-                  <h4
-                    data-testid="question-text"
-                  >
-                    {questions[index].question}
-                  </h4>
-                  <div data-testid="answer-options">
-                    {
-                      this.shuffleAnswers(questions[index])
-                    }
-                  </div>
-                </>
+                <div>
+                  {this.questionRender()}
+                </div>
               )
             )
           }
-          <button
-            type="button"
-            onClick={ this.handleClick }
-          >
-            Next
-          </button>
         </div>
       </div>
     );
