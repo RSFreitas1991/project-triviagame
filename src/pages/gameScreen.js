@@ -69,6 +69,8 @@ class GameScreen extends Component {
     );
   }
 
+  // comentário
+
   handleClick = () => {
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
