@@ -3,7 +3,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 
+import { newAction } from '../actions';
+import { SAVE_SCORE } from '../reducers/main';
+
 const MAX = 4;
+const baseValue = 10;
+const difficulties = {
+  hard: 3,
+  medium: 2,
+  easy: 1,
+};
 
 class GameScreen extends Component {
   constructor(props) {
@@ -11,8 +20,27 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
-      // isQuestionReady: false,
     };
+
+    this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
+  }
+
+  getCorrectAnswer(answer, correctAnswer, difficulty) {
+    const { updateScore } = this.props;
+    // 10 + (timer * dificuldade)
+    // hard: 3, medium: 2, easy: 1
+
+    if (answer === correctAnswer) {
+      console.log('acertouuuu');
+      console.log(baseValue + (1 * difficulties[difficulty]));
+      updateScore(baseValue + (1 * difficulties[difficulty]), SAVE_SCORE);
+    } else {
+      console.log('errooou');
+    }
+
+    console.log(answer);
+    console.log(correctAnswer);
+    console.log(difficulty);
   }
 
   shuffleAnswers = (answers) => {
@@ -30,27 +58,16 @@ class GameScreen extends Component {
           data-testid={
             answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
           }
+          onClick={
+            () => this.getCorrectAnswer(answer, answers.correct_answer,
+              answers.difficulty)
+          }
         >
           { answer }
         </button>
       ))
     );
   }
-
-  // fetchGame = async () => {
-  //   const { token } = this.props;
-
-  //   this.setState({
-  //     loading: true,
-  //   });
-
-  //   const fetchAPI = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
-  //   const data = await fetchAPI.json();
-
-  //   this.setState({
-  //     results: data.results,
-  //   });
-  // }
 
   handleClick = () => {
     this.setState((prev) => ({
@@ -105,13 +122,16 @@ class GameScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // token: state.token.token,
   questions: state.questions.questions,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  updateScore: (score, actionType) => dispatch(newAction(score, actionType)),
+});
+
 GameScreen.propTypes = {
-  // token: PropTypes.string.isRequired,
-  questions: PropTypes.instanceOf(Array).isRequired,
+  questions: PropTypes.instanceOf().isRequired,
+  updateScore: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(GameScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);

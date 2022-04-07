@@ -4,7 +4,7 @@ import token from './tokenReducer';
 import questions from './questionsReducer';
 
 const rootReducer = combineReducers({
-  main,
+  player: main,
   token,
   questions,
 });
