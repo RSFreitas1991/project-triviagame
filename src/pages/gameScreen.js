@@ -12,10 +12,18 @@ class GameScreen extends Component {
     this.state = {
       index: 0,
       answerSelected: false,
+      correct: '',
+      wrong: '',
+      // isQuestionReady: false,
     };
   }
 
+  addClassName = () => {
+    this.setState({ correct: 'correct-answer', wrong: 'wrong-answer' });
+  };
+
   shuffleAnswers = (answers) => {
+    const { correct, wrong } = this.state;
     const quests = [...answers.incorrect_answers, answers.correct_answer];
     const POINT5 = 0.5;
     const shuffle = quests.sort(() => Math.random() - POINT5);
@@ -30,7 +38,13 @@ class GameScreen extends Component {
           data-testid={
             answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
           }
-          onClick={ () => this.selectAnswer() }
+          className={
+            answer === answers.correct_answer ? correct : wrong
+          }
+          onClick={
+            this.addClassName
+            () => this.selectAnswer()
+          }
         >
           { answer }
         </button>
