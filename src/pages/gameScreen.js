@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
+import Timer from '../components/timer';
 
 const MAX = 4;
 
@@ -87,6 +88,7 @@ class GameScreen extends Component {
     return (
       <div>
         <Header />
+        <Timer />
         <div>
           {
             (

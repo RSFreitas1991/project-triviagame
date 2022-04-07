@@ -12,6 +12,10 @@ class Timer extends Component {
     this.timer = this.timer.bind(this);
   }
 
+  componentDidMount() {
+    this.timer();
+  }
+
   timer() {
     const miliSeconds = 1000;
     this.intervalID = setInterval(this.removeSeconds, miliSeconds);
@@ -34,12 +38,6 @@ class Timer extends Component {
     return (
       <div>
         <p>{seconds}</p>
-        <button
-          type="button"
-          onClick={ this.timer }
-        >
-          Start
-        </button>
       </div>
     );
   }
