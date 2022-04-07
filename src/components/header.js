@@ -4,22 +4,14 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 
 class Header extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      points: 0,
-    };
-  }
-
   gravatarCall(email) {
     const hash = md5(email).toString();
     return (`https://www.gravatar.com/avatar/${hash}`);
   }
 
   render() {
-    const { email, playerName } = this.props;
-    const { points } = this.state;
+    const { email, playerName, score } = this.props;
+
     return (
       <div className="header_superior">
         <span>
@@ -35,7 +27,7 @@ class Header extends Component {
         </div>
         <div>
           <h1>Placar:</h1>
-          <span data-testid="header-score">{ points }</span>
+          <span data-testid="header-score">{ score }</span>
         </div>
       </div>
     );
@@ -45,11 +37,13 @@ class Header extends Component {
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   playerName: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  email: state.main.email,
-  playerName: state.main.playerName,
+  email: state.player.email,
+  playerName: state.player.playerName,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps, null)(Header);

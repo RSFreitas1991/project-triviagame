@@ -42,7 +42,7 @@ class Timer extends Component {
     const { seconds } = this.state;
     return (
       <div>
-        <p>{seconds}</p>
+        <p id="timer">{seconds}</p>
       </div>
     );
   }
@@ -58,9 +58,4 @@ const mapDispatchToProps = (dispatch) => ({
   )),
 });
 
-const mapStateToProps = (state) => ({
-  email: state.main.email,
-  playerName: state.main.playerName,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default connect(null, mapDispatchToProps)(Timer);
