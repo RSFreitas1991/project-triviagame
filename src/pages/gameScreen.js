@@ -41,10 +41,7 @@ class GameScreen extends Component {
           className={
             answer === answers.correct_answer ? correct : wrong
           }
-          onClick={
             onClick={ this.executeFunctions }
-            () => this.selectAnswer()
-          }
         >
           { answer }
         </button>
@@ -52,8 +49,8 @@ class GameScreen extends Component {
     );
   }
 executeFunctions = () => {
-this.addClassName
-this.selectAnswer
+  this.addClassName;
+  this.selectAnswer;
 }
   selectAnswer = () => {
     this.setState({
