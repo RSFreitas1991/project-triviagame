@@ -18,9 +18,9 @@ class GameScreen extends Component {
     };
   }
 
-  addClassName = () => {
-    this.setState({ correct: 'correct-answer', wrong: 'wrong-answer' });
-  };
+  // addClassName = () => {
+  //   this.setState({ correct: 'correct-answer', wrong: 'wrong-answer' });
+  // };
 
   shuffleAnswers = (answers) => {
     const { correct, wrong } = this.state;
@@ -41,10 +41,7 @@ class GameScreen extends Component {
           className={
             answer === answers.correct_answer ? correct : wrong
           }
-          onClick={
-            this.addClassName
-            () => this.selectAnswer()
-          }
+          onClick={ this.selectAnswer }
         >
           { answer }
         </button>
@@ -55,6 +52,8 @@ class GameScreen extends Component {
   selectAnswer = () => {
     this.setState({
       answerSelected: true,
+      correct: 'correct-answer',
+      wrong: 'wrong-answer',
     });
   }
 
