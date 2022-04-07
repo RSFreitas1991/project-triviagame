@@ -51,7 +51,10 @@ class GameScreen extends Component {
       ))
     );
   }
-
+executeFunctions = () => {
+this.addClassName
+this.selectAnswer
+}
   selectAnswer = () => {
     this.setState({
       answerSelected: true,
