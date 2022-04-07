@@ -18,6 +18,7 @@ class GameScreen extends Component {
 
   shuffleAnswers = (answers) => {
     const quests = [...answers.incorrect_answers, answers.correct_answer];
+    const { isAnswerButtonDisabled } = this.props;
     const POINT5 = 0.5;
     const shuffle = quests.sort(() => Math.random() - POINT5);
 
@@ -28,6 +29,7 @@ class GameScreen extends Component {
         <button
           key={ answer }
           type="button"
+          disabled={ isAnswerButtonDisabled }
           data-testid={
             answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
           }
@@ -110,11 +112,13 @@ class GameScreen extends Component {
 const mapStateToProps = (state) => ({
   // token: state.token.token,
   questions: state.questions.questions,
+  isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
 });
 
 GameScreen.propTypes = {
   // token: PropTypes.string.isRequired,
   questions: PropTypes.instanceOf(Array).isRequired,
+  isAnswerButtonDisabled: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, null)(GameScreen);
