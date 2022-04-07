@@ -24,7 +24,6 @@ class GameScreen extends Component {
       answerSelected: false,
       correct: '',
       wrong: '',
-      // isQuestionReady: false,
     };
 
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -81,11 +80,16 @@ class GameScreen extends Component {
   }
 
   handleClick = () => {
+    const { history } = this.props;
+    const { index } = this.state;
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
       correct: '',
       wrong: '',
     }));
+    if (index === MAX) {
+      history.push('/feedback');
+    }
   }
 
   executeFunctions(answer, correctAnswer, difficulty) {
@@ -163,6 +167,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 GameScreen.propTypes = {
   updateScore: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
 };
