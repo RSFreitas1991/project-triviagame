@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
+import Timer from '../components/timer';
 
 import { newAction } from '../actions';
 import { SAVE_SCORE } from '../reducers/main';
@@ -20,31 +21,31 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
+      answerSelected: false,
+      correct: '',
+      wrong: '',
+      // isQuestionReady: false,
     };
 
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
+    this.executeFunctions = this.executeFunctions.bind(this);
   }
 
   getCorrectAnswer(answer, correctAnswer, difficulty) {
     const { updateScore } = this.props;
-    // 10 + (timer * dificuldade)
-    // hard: 3, medium: 2, easy: 1
 
     if (answer === correctAnswer) {
-      console.log('acertouuuu');
-      console.log(baseValue + (1 * difficulties[difficulty]));
-      updateScore(baseValue + (1 * difficulties[difficulty]), SAVE_SCORE);
-    } else {
-      console.log('errooou');
+      const timer = document.getElementById('timer').innerHTML;
+      updateScore(
+        baseValue + (parseInt(timer, 10) * difficulties[difficulty]), SAVE_SCORE,
+      );
     }
-
-    console.log(answer);
-    console.log(correctAnswer);
-    console.log(difficulty);
   }
 
   shuffleAnswers = (answers) => {
+    const { correct, wrong } = this.state;
     const quests = [...answers.incorrect_answers, answers.correct_answer];
+    const { isAnswerButtonDisabled } = this.props;
     const POINT5 = 0.5;
     const shuffle = quests.sort(() => Math.random() - POINT5);
 
@@ -55,13 +56,15 @@ class GameScreen extends Component {
         <button
           key={ answer }
           type="button"
+          disabled={ isAnswerButtonDisabled }
           data-testid={
             answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
           }
-          onClick={
-            () => this.getCorrectAnswer(answer, answers.correct_answer,
-              answers.difficulty)
+          className={
+            answer === answers.correct_answer ? correct : wrong
           }
+          onClick={ () => this.executeFunctions(answer, answers.correct_answer,
+            answers.difficulty) }
         >
           { answer }
         </button>
@@ -69,17 +72,30 @@ class GameScreen extends Component {
     );
   }
 
-  // comentário
+  selectAnswer = () => {
+    this.setState({
+      answerSelected: true,
+      correct: 'correct-answer',
+      wrong: 'wrong-answer',
+    });
+  }
 
   handleClick = () => {
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
+      correct: '',
+      wrong: '',
     }));
+  }
+
+  executeFunctions(answer, correctAnswer, difficulty) {
+    this.selectAnswer();
+    this.getCorrectAnswer(answer, correctAnswer, difficulty);
   }
 
   questionRender() {
     const { questions } = this.props;
-    const { index } = this.state;
+    const { index, answerSelected } = this.state;
     return (
       <div>
         <h4
@@ -97,6 +113,17 @@ class GameScreen extends Component {
             this.shuffleAnswers(questions[index])
           }
         </div>
+        <div>
+          {answerSelected && (
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Next
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -106,6 +133,8 @@ class GameScreen extends Component {
     return (
       <div>
         <Header />
+        <h1>Tempo:</h1>
+        <Timer />
         <div>
           {
             (
@@ -125,6 +154,7 @@ class GameScreen extends Component {
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
+  isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,8 +162,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 GameScreen.propTypes = {
-  questions: PropTypes.instanceOf().isRequired,
   updateScore: PropTypes.func.isRequired,
+  questions: PropTypes.instanceOf(Array).isRequired,
+  isAnswerButtonDisabled: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
