@@ -12,15 +12,16 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
+      answerSelected: false,
       correct: '',
       wrong: '',
       // isQuestionReady: false,
     };
   }
 
-  addClassName = () => {
-    this.setState({ correct: 'correct-answer', wrong: 'wrong-answer' });
-  };
+  // addClassName = () => {
+  //   this.setState({ correct: 'correct-answer', wrong: 'wrong-answer' });
+  // };
 
   shuffleAnswers = (answers) => {
     const { correct, wrong } = this.state;
@@ -43,7 +44,7 @@ class GameScreen extends Component {
           className={
             answer === answers.correct_answer ? correct : wrong
           }
-          onClick={ this.addClassName }
+          onClick={ this.selectAnswer }
         >
           { answer }
         </button>
@@ -51,20 +52,13 @@ class GameScreen extends Component {
     );
   }
 
-  // fetchGame = async () => {
-  //   const { token } = this.props;
-
-  //   this.setState({
-  //     loading: true,
-  //   });
-
-  //   const fetchAPI = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
-  //   const data = await fetchAPI.json();
-
-  //   this.setState({
-  //     results: data.results,
-  //   });
-  // }
+  selectAnswer = () => {
+    this.setState({
+      answerSelected: true,
+      correct: 'correct-answer',
+      wrong: 'wrong-answer',
+    });
+  }
 
   handleClick = () => {
     this.setState((prev) => ({
@@ -74,7 +68,7 @@ class GameScreen extends Component {
 
   questionRender() {
     const { questions } = this.props;
-    const { index } = this.state;
+    const { index, answerSelected } = this.state;
     return (
       <div>
         <h4
@@ -91,6 +85,17 @@ class GameScreen extends Component {
           {
             this.shuffleAnswers(questions[index])
           }
+        </div>
+        <div>
+          {answerSelected && (
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     );
@@ -121,13 +126,11 @@ class GameScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // token: state.token.token,
   questions: state.questions.questions,
   isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
 });
 
 GameScreen.propTypes = {
-  // token: PropTypes.string.isRequired,
   questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
 };
