@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { newAction } from '../actions';
+import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
 
 class Timer extends Component {
   constructor() {
@@ -23,6 +26,7 @@ class Timer extends Component {
 
   removeSeconds() {
     const { seconds } = this.state;
+    const { isAnswerButtonDisabled } = this.props;
     const lessSecond = seconds - 1;
     if (seconds !== 0) {
       this.setState({
@@ -30,6 +34,7 @@ class Timer extends Component {
       });
     } else {
       clearInterval(this.intervalID);
+      isAnswerButtonDisabled(true, CHANGE_BUTTON_STATE);
     }
   }
 
@@ -43,9 +48,19 @@ class Timer extends Component {
   }
 }
 
+Timer.propTypes = {
+  isAnswerButtonDisabled: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  isAnswerButtonDisabled: (state, type) => dispatch(newAction(
+    state, type,
+  )),
+});
+
 const mapStateToProps = (state) => ({
   email: state.main.email,
   playerName: state.main.playerName,
 });
 
-export default connect(mapStateToProps, null)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
