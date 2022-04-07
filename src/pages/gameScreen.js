@@ -88,6 +88,7 @@ class GameScreen extends Component {
     return (
       <div>
         <Header />
+        <h1>Tempo:</h1>
         <Timer />
         <div>
           {
