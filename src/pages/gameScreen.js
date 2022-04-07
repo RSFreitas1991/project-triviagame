@@ -42,7 +42,7 @@ class GameScreen extends Component {
             answer === answers.correct_answer ? correct : wrong
           }
           onClick={
-            this.addClassName
+            onClick={ this.executeFunctions }
             () => this.selectAnswer()
           }
         >
