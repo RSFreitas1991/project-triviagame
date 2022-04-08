@@ -69,14 +69,13 @@ class GameScreen extends Component {
     ));
     return questions;
   }
-  //  mudar a logica das questoes;
 
   selectAnswer = () => {
     this.setState({
       answerSelected: true,
     });
     const wrongAnswers = document.querySelectorAll('#wrong-answer');
-    const correctAnswers = document.getElementById('correct-answer');
+    const correctAnswers = document.getElementById(correct);
     correctAnswers.className = correct;
     for (let index = 0; index < wrongAnswers.length; index += 1) {
       wrongAnswers[index].className = 'wrong-answer';
@@ -86,6 +85,7 @@ class GameScreen extends Component {
   handleClick = () => {
     const { history } = this.props;
     const { index } = this.state;
+    this.resetClassAnswers();
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
     }));
@@ -93,6 +93,15 @@ class GameScreen extends Component {
     this.questionsShuffleFunction();
     if (index === MAX) {
       history.push('/feedback');
+    }
+  }
+
+  resetClassAnswers() {
+    const wrongAnswers = document.querySelectorAll('#wrong-answer');
+    const correctAnswers = document.getElementById('correct-answer');
+    correctAnswers.className = '';
+    for (let index = 0; index < wrongAnswers.length; index += 1) {
+      wrongAnswers[index].className = '';
     }
   }
 
