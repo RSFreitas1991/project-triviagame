@@ -42,7 +42,7 @@ class Timer extends Component {
     const { seconds } = this.state;
     return (
       <div>
-        <p id="timer">{seconds}</p>
+        <h1 className="timer" id="timer">{seconds}</h1>
       </div>
     );
   }

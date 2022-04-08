@@ -100,40 +100,47 @@ class Login extends React.Component {
   render() {
     const { email, playerName, submitButton } = this.state;
     return (
-      <div className="main">
-        <fieldset className="fieldset">
-          Email do Gravatar:
-          <input
-            type="email"
-            name="email"
-            data-testid="input-gravatar-email"
-            onChange={ this.handleChange }
-            value={ email }
-            required
-          />
-          Nome do Jogador:
-          <input
-            type="text"
-            name="playerName"
-            data-testid="input-player-name"
-            onChange={ this.handleChange }
-            value={ playerName }
-          />
+      <div className="login-page">
+        <div className="main">
+          <h2 className="login-title">Faça Login para começar a jogar!</h2>
+          <fieldset className="fieldset">
+            <input
+              type="email"
+              name="email"
+              data-testid="input-gravatar-email"
+              onChange={ this.handleChange }
+              value={ email }
+              className="login-input"
+              placeholder="Email do Gravatar"
+              required
+            />
+            <input
+              type="text"
+              name="playerName"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+              value={ playerName }
+              className="login-input"
+              placeholder="Nome do Jogador:"
+            />
+            <button
+              type="button"
+              data-testid="btn-play"
+              onClick={ this.getToken }
+              disabled={ submitButton }
+              className="login-button"
+            >
+              Play
+            </button>
+          </fieldset>
           <button
             type="button"
-            data-testid="btn-play"
-            onClick={ this.getToken }
-            disabled={ submitButton }
+            data-testid="btn-settings"
+            className="login-settings-button"
           >
-            Play
+            <Link to="/settings">Configurações</Link>
           </button>
-        </fieldset>
-        <button
-          type="button"
-          data-testid="btn-settings"
-        >
-          <Link to="/settings">Configurações</Link>
-        </button>
+        </div>
       </div>
     );
   }

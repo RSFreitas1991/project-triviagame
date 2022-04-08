@@ -101,17 +101,17 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index, answerSelected } = this.state;
     return (
-      <div>
-        <h4
+      <div className="game">
+        <h2
           data-testid="question-category"
         >
           {questions[index].category}
-        </h4>
-        <h4
+        </h2>
+        <h2
           data-testid="question-text"
         >
           {questions[index].question}
-        </h4>
+        </h2>
         <div data-testid="answer-options">
           {
             this.shuffleAnswers(questions[index])
@@ -123,6 +123,7 @@ class GameScreen extends Component {
               type="button"
               onClick={ this.handleClick }
               data-testid="btn-next"
+              className="next-button"
             >
               Next
             </button>
@@ -137,9 +138,8 @@ class GameScreen extends Component {
     return (
       <div>
         <Header />
-        <h1>Tempo:</h1>
-        <Timer />
-        <div>
+        <div className="game-screen">
+          <Timer />
           {
             (
               questions.length > 0
