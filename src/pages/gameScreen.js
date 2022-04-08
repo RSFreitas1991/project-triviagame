@@ -177,7 +177,7 @@ GameScreen.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  questions: PropTypes.instanceOf(Array).isRequired,
+  questions: PropTypes.string.isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
 };
