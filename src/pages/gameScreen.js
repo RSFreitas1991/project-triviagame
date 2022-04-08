@@ -23,7 +23,6 @@ class GameScreen extends Component {
       answerSelected: false,
       correct: '',
       wrong: '',
-      renderNewQuestions: true,
     };
     this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -72,6 +71,7 @@ class GameScreen extends Component {
     ));
     return questions;
   }
+  //  mudar a logica das questoes;
 
   selectAnswer = () => {
     this.setState({
