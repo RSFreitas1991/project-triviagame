@@ -146,7 +146,7 @@ Login.propTypes = {
   sendToken: PropTypes.func.isRequired,
   saveEmailAndPlayerName: PropTypes.func.isRequired,
   getQuestions: PropTypes.func.isRequired,
-  token: PropTypes.instanceOf(Object).isRequired,
+  token: PropTypes.string.isRequired,
   isQuestionsSaved: PropTypes.bool.isRequired,
 };
 

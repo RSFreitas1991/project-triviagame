@@ -23,10 +23,15 @@ class GameScreen extends Component {
       answerSelected: false,
       correct: '',
       wrong: '',
+      renderNewQuestions: true,
     };
-
+    this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
     this.executeFunctions = this.executeFunctions.bind(this);
+  }
+
+  componentDidMount() {
+    this.questionsShuffleFunction();
   }
 
   getCorrectAnswer(answer, correctAnswer, difficulty) {
@@ -48,26 +53,24 @@ class GameScreen extends Component {
     const shuffle = quests.sort(() => Math.random() - POINT5);
 
     //  https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-
-    return (
-      shuffle.map((answer, index) => (
-        <button
-          key={ answer }
-          type="button"
-          disabled={ isAnswerButtonDisabled }
-          data-testid={
-            answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
-          }
-          className={
-            answer === answers.correct_answer ? correct : wrong
-          }
-          onClick={ () => this.executeFunctions(answer, answers.correct_answer,
-            answers.difficulty) }
-        >
-          { answer }
-        </button>
-      ))
-    );
+    const questions = shuffle.map((answer, index) => (
+      <button
+        key={ answer }
+        type="button"
+        disabled={ isAnswerButtonDisabled }
+        data-testid={
+          answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
+        }
+        className={
+          answer === answers.correct_answer ? correct : wrong
+        }
+        onClick={ () => this.executeFunctions(answer, answers.correct_answer,
+          answers.difficulty) }
+      >
+        { answer }
+      </button>
+    ));
+    return questions;
   }
 
   selectAnswer = () => {
@@ -87,9 +90,16 @@ class GameScreen extends Component {
       wrong: '',
     }));
     this.resetTimerFunction();
+    this.questionsShuffleFunction();
     if (index === MAX) {
       history.push('/feedback');
     }
+  }
+
+  questionsShuffleFunction() {
+    const { questions } = this.props;
+    const { index } = this.state;
+    this.questionsShuffle = this.shuffleAnswers(questions[index]);
   }
 
   resetTimerFunction() {
@@ -119,7 +129,7 @@ class GameScreen extends Component {
         </h4>
         <div data-testid="answer-options">
           {
-            this.shuffleAnswers(questions[index])
+            this.questionsShuffle
           }
         </div>
         <div>
@@ -177,7 +187,7 @@ GameScreen.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  questions: PropTypes.string.isRequired,
+  questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
 };
