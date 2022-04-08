@@ -3,12 +3,16 @@ const INITIAL_STATE = {
   playerName: '',
   assertions: 0,
   score: 0,
+  resetTimer: false,
+  timerFreeze: false,
 
 };
 
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_PLAYERNAME = 'SAVE_PLAYERNAME';
 export const SAVE_SCORE = 'SAVE_SCORE';
+export const RESET_TIMER = 'RESET_TIMER';
+export const TIMER_FREEZE = 'TIMER_FREEZE';
 export const RESET_LOGIN = 'RESET_LOGIN';
 
 function main(state = INITIAL_STATE, action) {
@@ -22,6 +26,12 @@ function main(state = INITIAL_STATE, action) {
     return {
       ...state,
       score: action.state,
+    };
+  case RESET_TIMER:
+    return { ...state, resetTimer: action.state,
+    };
+  case TIMER_FREEZE:
+    return { ...state, timerFreeze: action.state,
     };
   case RESET_LOGIN:
     return {
