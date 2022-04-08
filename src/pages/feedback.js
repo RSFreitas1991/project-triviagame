@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import GoToRanking from '../components/GoToRanking';
 import Header from '../components/header';
+import PlayAgain from '../components/PlayAgain';
 
 class Feedback extends React.Component {
   render() {
@@ -15,15 +15,19 @@ class Feedback extends React.Component {
             Text de feedback
           </p>
         </div>
-        <GoToRanking history={ history } />
+        <div>
+          <GoToRanking history={ history } />
+          <PlayAgain history={ history } />
+        </div>
       </>
-
     );
   }
 }
 
 Feedback.propTypes = {
-  history: PropTypes.shape(PropTypes.any).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Feedback;
