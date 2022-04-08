@@ -3,12 +3,14 @@ const INITIAL_STATE = {
   playerName: '',
   assertions: 0,
   score: 0,
+  resetTimer: false,
 
 };
 
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_PLAYERNAME = 'SAVE_PLAYERNAME';
 export const SAVE_SCORE = 'SAVE_SCORE';
+export const RESET_TIMER = 'RESET_TIMER';
 
 function main(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -21,6 +23,9 @@ function main(state = INITIAL_STATE, action) {
     return {
       ...state,
       score: action.state,
+    };
+  case RESET_TIMER:
+    return { ...state, resetTimer: action.state,
     };
   default:
     return state;

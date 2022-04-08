@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { newAction } from '../actions';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
+import { RESET_TIMER } from '../reducers/main';
 
 class Timer extends Component {
   constructor() {
@@ -17,6 +18,22 @@ class Timer extends Component {
 
   componentDidMount() {
     this.timer();
+  }
+
+  componentDidUpdate() {
+    this.resetTimerFunction();
+  }
+
+  resetTimerFunction() {
+    const { resetTimer, isAnswerButtonDisabled } = this.props;
+    if (resetTimer) {
+      clearInterval(this.intervalID);
+      isAnswerButtonDisabled(false, RESET_TIMER);
+      this.setState({
+        seconds: 30,
+      });
+      this.timer();
+    }
   }
 
   timer() {
@@ -50,7 +67,12 @@ class Timer extends Component {
 
 Timer.propTypes = {
   isAnswerButtonDisabled: PropTypes.func.isRequired,
+  resetTimer: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  resetTimer: state.player.resetTimer,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   isAnswerButtonDisabled: (state, type) => dispatch(newAction(
@@ -58,4 +80,4 @@ const mapDispatchToProps = (dispatch) => ({
   )),
 });
 
-export default connect(null, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);

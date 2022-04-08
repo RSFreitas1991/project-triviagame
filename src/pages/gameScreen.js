@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import Timer from '../components/timer';
-
 import { newAction } from '../actions';
-import { SAVE_SCORE } from '../reducers/main';
+import { SAVE_SCORE, RESET_TIMER } from '../reducers/main';
 
 const MAX = 4;
 const baseValue = 10;
@@ -87,9 +86,15 @@ class GameScreen extends Component {
       correct: '',
       wrong: '',
     }));
+    this.resetTimerFunction();
     if (index === MAX) {
       history.push('/feedback');
     }
+  }
+
+  resetTimerFunction() {
+    const { updateScore } = this.props;
+    updateScore(true, RESET_TIMER);
   }
 
   executeFunctions(answer, correctAnswer, difficulty) {
@@ -160,6 +165,7 @@ const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
   score: state.player.score,
+  resetTimer: state.player.resetTimer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
