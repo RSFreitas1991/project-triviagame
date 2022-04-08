@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-
-import { RESET_LOGIN } from '../reducers/main';
 import { newAction, CLEAR_TOKEN } from '../actions';
+import { RESET_LOGIN } from '../reducers/main';
 
-class PlayAgain extends Component {
-  playAgain = () => {
+class GoHome extends Component {
+  goHome = () => {
     const { history, resetLogin, clearToken } = this.props;
     history.push('/');
     resetLogin();
@@ -19,16 +17,16 @@ class PlayAgain extends Component {
     return (
       <button
         type="button"
-        onClick={ this.playAgain }
-        data-testid="btn-play-again"
+        data-testid="btn-go-home"
+        onClick={ this.goHome }
       >
-        Play Again
+        Home
       </button>
     );
   }
 }
 
-PlayAgain.propTypes = {
+GoHome.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -41,4 +39,4 @@ const mapDispatchToProps = (dispatch) => ({
   clearToken: () => dispatch(newAction('', CLEAR_TOKEN)),
 });
 
-export default connect(null, mapDispatchToProps)(PlayAgain);
+export default connect(null, mapDispatchToProps)(GoHome);
