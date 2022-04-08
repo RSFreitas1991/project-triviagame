@@ -12,10 +12,124 @@ code {
     monospace;
 }
 
+a:link {
+  text-decoration: none;
+}
+
+button {
+  background-color: rgb(230, 230, 230);
+  border: 1px solid black;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 140px;
+}
+
+.login-page {
+  background-color: rgb(66, 137, 191);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  height: 55%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-title {
+  margin-bottom: 50px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  width: 300px
+}
+
+.login-input {
+  width: 280px;
+  margin-bottom: 5px;
+}
+
+.login-button {
+  margin-top: 5px;
+  width: 80px;
+  background-color: rgb(230, 230, 230);
+  border: 1px solid black;
+}
+
+.login-settings-button {
+  margin-top: 5px;
+  width: 120px;
+  background-color: rgb(230, 230, 230);
+  border: 1px solid black;
+  text-decoration: none;
+  margin-top: 30px;
+  color: black;
+}
+
+.header-superior {
+  background-color: rgb(66, 137, 191);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.header-player-name {
+  display: flex;
+  padding-left: 30px;
+  color: white;
+}
+
+.header-score {
+  display: flex;
+  padding-left: 70%;
+  color: white;
+}
+
+.header-element {
+  padding-right: 4px;
+}
+
+.game-screen, .game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.timer {
+  color:rgb(66, 137, 191);
+  font-size: 60px;
+  margin-top: 40px;
+}
+
+.game {
+  border: 2px solid black;
+  padding: 0px 100px 20px 100px;
+}
+
 .correct-answer {
   border: 3px solid rgb(6, 240, 15);
 }
 
 .wrong-answer {
   border: 3px solid rgb(255, 0, 0);
+}
+
+.next-button {
+  margin-top: 8px;
 }
