@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import Timer from '../components/timer';
 import { newAction } from '../actions';
-import { SAVE_SCORE, RESET_TIMER } from '../reducers/main';
+import { SAVE_SCORE, RESET_TIMER, TIMER_FREEZE } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
 
 const MAX = 4;
@@ -91,6 +91,7 @@ class GameScreen extends Component {
       wrongAnswers[index].className = 'wrong-answer';
     }
     disableAnswers(true, CHANGE_BUTTON_STATE);
+    disableAnswers(true, TIMER_FREEZE);
   }
 
   handleClick = () => {
