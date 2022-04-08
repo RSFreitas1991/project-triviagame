@@ -13,7 +13,7 @@ class Header extends Component {
     const { email, playerName, score } = this.props;
 
     return (
-      <div className="header_superior">
+      <div className="header-superior">
         <span>
           <img
             src={ this.gravatarCall(email) }
@@ -21,13 +21,13 @@ class Header extends Component {
             data-testid="header-profile-picture"
           />
         </span>
-        <div>
-          <h1>Jogador:</h1>
-          <span data-testid="header-player-name">{ playerName }</span>
+        <div className="header-player-name">
+          <h2 className="header-element">Jogador:</h2>
+          <h2 data-testid="header-player-name">{ playerName }</h2>
         </div>
-        <div>
-          <h1>Placar:</h1>
-          <span data-testid="header-score">{ score }</span>
+        <div className="header-score">
+          <h2 className="header-element">Placar:</h2>
+          <h2 data-testid="header-score">{ score }</h2>
         </div>
       </div>
     );

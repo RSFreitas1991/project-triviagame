@@ -146,17 +146,17 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index, answerSelected } = this.state;
     return (
-      <div>
-        <h4
+      <div className="game">
+        <h2
           data-testid="question-category"
         >
           {questions[index].category}
-        </h4>
-        <h4
+        </h2>
+        <h2
           data-testid="question-text"
         >
           {questions[index].question}
-        </h4>
+        </h2>
         <div data-testid="answer-options">
           {
             this.questionsShuffle
@@ -168,6 +168,7 @@ class GameScreen extends Component {
               type="button"
               onClick={ this.handleClick }
               data-testid="btn-next"
+              className="next-button"
             >
               Next
             </button>
@@ -182,9 +183,8 @@ class GameScreen extends Component {
     return (
       <div>
         <Header />
-        <h1>Tempo:</h1>
-        <Timer />
-        <div>
+        <div className="game-screen">
+          <Timer />
           {
             (
               questions.length > 0
@@ -216,12 +216,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 GameScreen.propTypes = {
+  isAnswerButtonDisabled: PropTypes.bool.isRequired,
+  questions: PropTypes.instanceOf(Array).isRequired,
   updateScore: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func,
+    push: PropTypes.func.isRequired,
   }).isRequired,
-  questions: PropTypes.instanceOf(Array).isRequired,
-  isAnswerButtonDisabled: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
   disableAnswers: PropTypes.func.isRequired,
 };

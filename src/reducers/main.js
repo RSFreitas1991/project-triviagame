@@ -13,6 +13,7 @@ export const SAVE_PLAYERNAME = 'SAVE_PLAYERNAME';
 export const SAVE_SCORE = 'SAVE_SCORE';
 export const RESET_TIMER = 'RESET_TIMER';
 export const TIMER_FREEZE = 'TIMER_FREEZE';
+export const RESET_LOGIN = 'RESET_LOGIN';
 
 function main(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -31,6 +32,12 @@ function main(state = INITIAL_STATE, action) {
     };
   case TIMER_FREEZE:
     return { ...state, timerFreeze: action.state,
+    };
+  case RESET_LOGIN:
+    return {
+      ...state,
+      email: '',
+      playerName: '',
     };
   default:
     return state;

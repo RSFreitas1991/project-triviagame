@@ -1,5 +1,6 @@
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
+export const CLEAR_TOKEN = 'CLEAR_TOKEN';
 
 export const newAction = (state, action) => ({ type: action, state });
 
