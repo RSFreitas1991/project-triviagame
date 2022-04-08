@@ -169,6 +169,9 @@ GameScreen.propTypes = {
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
   questions: PropTypes.instanceOf().isRequired,
   updateScore: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
