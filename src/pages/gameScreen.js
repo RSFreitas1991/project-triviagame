@@ -13,6 +13,7 @@ const difficulties = {
   medium: 2,
   easy: 1,
 };
+const correct = 'correct-answer';
 
 class GameScreen extends Component {
   constructor(props) {
@@ -21,8 +22,6 @@ class GameScreen extends Component {
     this.state = {
       index: 0,
       answerSelected: false,
-      correct: '',
-      wrong: '',
     };
     this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -45,7 +44,6 @@ class GameScreen extends Component {
   }
 
   shuffleAnswers = (answers) => {
-    const { correct, wrong } = this.state;
     const quests = [...answers.incorrect_answers, answers.correct_answer];
     const { isAnswerButtonDisabled } = this.props;
     const POINT5 = 0.5;
@@ -58,10 +56,10 @@ class GameScreen extends Component {
         type="button"
         disabled={ isAnswerButtonDisabled }
         data-testid={
-          answer === answers.correct_answer ? 'correct-answer' : `wrong-answer-${index}`
+          answer === answers.correct_answer ? correct : `wrong-answer-${index}`
         }
-        className={
-          answer === answers.correct_answer ? correct : wrong
+        id={
+          answer === answers.correct_answer ? correct : 'wrong-answer'
         }
         onClick={ () => this.executeFunctions(answer, answers.correct_answer,
           answers.difficulty) }
@@ -76,9 +74,13 @@ class GameScreen extends Component {
   selectAnswer = () => {
     this.setState({
       answerSelected: true,
-      correct: 'correct-answer',
-      wrong: 'wrong-answer',
     });
+    const wrongAnswers = document.querySelectorAll('#wrong-answer');
+    const correctAnswers = document.getElementById('correct-answer');
+    correctAnswers.className = correct;
+    for (let index = 0; index < wrongAnswers.length; index += 1) {
+      wrongAnswers[index].className = 'wrong-answer';
+    }
   }
 
   handleClick = () => {
@@ -86,8 +88,6 @@ class GameScreen extends Component {
     const { index } = this.state;
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
-      correct: '',
-      wrong: '',
     }));
     this.resetTimerFunction();
     this.questionsShuffleFunction();
