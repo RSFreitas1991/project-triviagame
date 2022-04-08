@@ -5,6 +5,7 @@ import Header from '../components/header';
 import Timer from '../components/timer';
 import { newAction } from '../actions';
 import { SAVE_SCORE, RESET_TIMER } from '../reducers/main';
+import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
 
 const MAX = 4;
 const baseValue = 10;
@@ -14,6 +15,7 @@ const difficulties = {
   easy: 1,
 };
 const correct = 'correct-answer';
+const wrong = '#wrong-answer';
 
 class GameScreen extends Component {
   constructor(props) {
@@ -32,6 +34,15 @@ class GameScreen extends Component {
     this.questionsShuffleFunction();
   }
 
+  componentDidUpdate() {
+    const { isAnswerButtonDisabled } = this.props;
+    if (isAnswerButtonDisabled) {
+      this.changeButtomState(true);
+    } else {
+      this.changeButtomState(false);
+    }
+  }
+
   getCorrectAnswer(answer, correctAnswer, difficulty) {
     const { updateScore, score } = this.props;
 
@@ -45,7 +56,6 @@ class GameScreen extends Component {
 
   shuffleAnswers = (answers) => {
     const quests = [...answers.incorrect_answers, answers.correct_answer];
-    const { isAnswerButtonDisabled } = this.props;
     const POINT5 = 0.5;
     const shuffle = quests.sort(() => Math.random() - POINT5);
 
@@ -54,7 +64,6 @@ class GameScreen extends Component {
       <button
         key={ answer }
         type="button"
-        disabled={ isAnswerButtonDisabled }
         data-testid={
           answer === answers.correct_answer ? correct : `wrong-answer-${index}`
         }
@@ -74,12 +83,14 @@ class GameScreen extends Component {
     this.setState({
       answerSelected: true,
     });
-    const wrongAnswers = document.querySelectorAll('#wrong-answer');
+    const { disableAnswers } = this.props;
+    const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
     correctAnswers.className = correct;
     for (let index = 0; index < wrongAnswers.length; index += 1) {
       wrongAnswers[index].className = 'wrong-answer';
     }
+    disableAnswers(true, CHANGE_BUTTON_STATE);
   }
 
   handleClick = () => {
@@ -93,6 +104,15 @@ class GameScreen extends Component {
     this.questionsShuffleFunction();
     if (index === MAX) {
       history.push('/feedback');
+    }
+  }
+
+  changeButtomState(state) {
+    const wrongAnswers = document.querySelectorAll(wrong);
+    const correctAnswers = document.getElementById(correct);
+    correctAnswers.disabled = state;
+    for (let index = 0; index < wrongAnswers.length; index += 1) {
+      wrongAnswers[index].disabled = state;
     }
   }
 
@@ -189,6 +209,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateScore: (score, actionType) => dispatch(newAction(score, actionType)),
+  disableAnswers: (state, type) => dispatch(newAction(
+    state, type,
+  )),
 });
 
 GameScreen.propTypes = {
@@ -199,6 +222,7 @@ GameScreen.propTypes = {
   questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
+  disableAnswers: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);

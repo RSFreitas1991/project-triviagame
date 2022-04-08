@@ -29,6 +29,7 @@ class Timer extends Component {
     if (resetTimer) {
       clearInterval(this.intervalID);
       isAnswerButtonDisabled(false, RESET_TIMER);
+      isAnswerButtonDisabled(false, CHANGE_BUTTON_STATE);
       this.setState({
         seconds: 30,
       });
