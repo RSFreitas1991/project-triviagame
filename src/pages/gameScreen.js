@@ -31,13 +31,13 @@ class GameScreen extends Component {
   }
 
   getCorrectAnswer(answer, correctAnswer, difficulty) {
-    const { updateScore } = this.props;
+    const { updateScore, score } = this.props;
 
     if (answer === correctAnswer) {
       const timer = document.getElementById('timer').innerHTML;
-      updateScore(
-        baseValue + (parseInt(timer, 10) * difficulties[difficulty]), SAVE_SCORE,
-      );
+      const pointsEarned = baseValue + (parseInt(timer, 10) * difficulties[difficulty]);
+      const totalPointsEarned = pointsEarned + score;
+      updateScore(totalPointsEarned, SAVE_SCORE);
     }
   }
 
@@ -159,6 +159,7 @@ class GameScreen extends Component {
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
+  score: state.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -172,6 +173,7 @@ GameScreen.propTypes = {
   }).isRequired,
   questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
