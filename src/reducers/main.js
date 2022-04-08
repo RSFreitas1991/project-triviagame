@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_PLAYERNAME = 'SAVE_PLAYERNAME';
 export const SAVE_SCORE = 'SAVE_SCORE';
+export const RESET_LOGIN = 'RESET_LOGIN';
 
 function main(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -21,6 +22,12 @@ function main(state = INITIAL_STATE, action) {
     return {
       ...state,
       score: action.state,
+    };
+  case RESET_LOGIN:
+    return {
+      ...state,
+      email: '',
+      playerName: '',
     };
   default:
     return state;

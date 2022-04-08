@@ -166,12 +166,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 GameScreen.propTypes = {
-  updateScore: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-  questions: PropTypes.instanceOf(Array).isRequired,
   isAnswerButtonDisabled: PropTypes.bool.isRequired,
+  questions: PropTypes.instanceOf().isRequired,
+  updateScore: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
