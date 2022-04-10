@@ -23,9 +23,7 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
-      answerSelected: false,
       isQuestionsShuffleReady: false,
-      isNextButtonAvailable: false,
     };
     this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -82,9 +80,6 @@ class GameScreen extends Component {
   }
 
   selectAnswer = () => {
-    this.setState({
-      answerSelected: true,
-    });
     const { disableAnswers } = this.props;
     const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
@@ -105,10 +100,6 @@ class GameScreen extends Component {
     }));
     this.resetTimerFunction();
     this.questionsShuffleFunction();
-    this.setState({
-      answerSelected: false,
-      isNextButtonAvailable: false,
-    });
     if (index === MAX) {
       history.push('/feedback');
     }
@@ -117,18 +108,9 @@ class GameScreen extends Component {
   changeButtomState(state) {
     const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
-    const timer = parseInt(document.getElementById('timer').innerHTML, 10);
-    const { isNextButtonAvailable } = this.state;
     correctAnswers.disabled = state;
-    for (let index = 0; index < wrongAnswers.length; index += 1) {
-      wrongAnswers[index].disabled = state;
-    }
-    console.log(timer);
-    if (timer === 0 && isNextButtonAvailable === false) {
-      this.setState({
-        answerSelected: true,
-        isNextButtonAvailable: true,
-      });
+    for (let i = 0; i < wrongAnswers.length; i += 1) {
+      wrongAnswers[i].disabled = state;
     }
   }
 
@@ -161,8 +143,8 @@ class GameScreen extends Component {
   }
 
   questionRender() {
-    const { questions } = this.props;
-    const { index, answerSelected } = this.state;
+    const { questions, isAnswerButtonDisabled } = this.props;
+    const { index } = this.state;
     return (
       <div className="game">
         <h2
@@ -181,7 +163,7 @@ class GameScreen extends Component {
           }
         </div>
         <div>
-          {answerSelected && (
+          {isAnswerButtonDisabled && (
             <button
               type="button"
               onClick={ this.handleClick }
