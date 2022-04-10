@@ -25,6 +25,7 @@ class GameScreen extends Component {
       index: 0,
       answerSelected: false,
       isQuestionsShuffleReady: false,
+      isNextButtonAvailable: false,
     };
     this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -104,6 +105,10 @@ class GameScreen extends Component {
     }));
     this.resetTimerFunction();
     this.questionsShuffleFunction();
+    this.setState({
+      answerSelected: false,
+      isNextButtonAvailable: false,
+    });
     if (index === MAX) {
       history.push('/feedback');
     }
@@ -112,9 +117,18 @@ class GameScreen extends Component {
   changeButtomState(state) {
     const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
+    const timer = parseInt(document.getElementById('timer').innerHTML, 10);
+    const { isNextButtonAvailable } = this.state;
     correctAnswers.disabled = state;
     for (let index = 0; index < wrongAnswers.length; index += 1) {
       wrongAnswers[index].disabled = state;
+    }
+    console.log(timer);
+    if (timer === 0 && isNextButtonAvailable === false) {
+      this.setState({
+        answerSelected: true,
+        isNextButtonAvailable: true,
+      });
     }
   }
 

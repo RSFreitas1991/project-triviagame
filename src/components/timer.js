@@ -37,7 +37,6 @@ class Timer extends Component {
     }
     if (TimerFreeze) {
       const timer = document.getElementById('timer').innerHTML;
-      console.log('Entrei no freeze');
       clearInterval(this.intervalID);
       document.getElementById('timer').innerHTML = timer;
       isAnswerButtonDisabled(false, TIMER_FREEZE);
