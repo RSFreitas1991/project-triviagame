@@ -24,6 +24,7 @@ class GameScreen extends Component {
     this.state = {
       index: 0,
       answerSelected: false,
+      isQuestionsShuffleReady: false,
     };
     this.questionsShuffle = 0;
     this.getCorrectAnswer = this.getCorrectAnswer.bind(this);
@@ -130,6 +131,9 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index } = this.state;
     this.questionsShuffle = this.shuffleAnswers(questions[index]);
+    this.setState({
+      isQuestionsShuffleReady: true,
+    });
   }
 
   resetTimerFunction() {
@@ -179,7 +183,7 @@ class GameScreen extends Component {
   }
 
   render() {
-    const { questions } = this.props;
+    const { isQuestionsShuffleReady } = this.state;
     return (
       <div>
         <Header />
@@ -187,7 +191,7 @@ class GameScreen extends Component {
           <Timer />
           {
             (
-              questions.length > 0
+              isQuestionsShuffleReady
               && (
                 <div>
                   {this.questionRender()}
