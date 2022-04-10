@@ -145,6 +145,8 @@ class GameScreen extends Component {
   questionRender() {
     const { questions, isAnswerButtonDisabled } = this.props;
     const { index } = this.state;
+    const questionFiltred1 = questions[index].question.replace(/&#039;/g, '`');
+    const questionFiltred2 = questionFiltred1.replace(/&quot;/g, '"');
     return (
       <div className="game">
         <h2
@@ -155,7 +157,7 @@ class GameScreen extends Component {
         <h2
           data-testid="question-text"
         >
-          {questions[index].question}
+          {questionFiltred2}
         </h2>
         <div data-testid="answer-options">
           {
