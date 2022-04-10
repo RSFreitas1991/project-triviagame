@@ -6,7 +6,7 @@ import Timer from '../components/timer';
 import { newAction } from '../actions';
 import { SAVE_SCORE, RESET_TIMER, TIMER_FREEZE } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
-
+//  bughunt
 const MAX = 4;
 const baseValue = 10;
 const difficulties = {
