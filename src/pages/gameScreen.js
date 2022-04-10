@@ -6,7 +6,7 @@ import Timer from '../components/timer';
 import { newAction } from '../actions';
 import { SAVE_SCORE, RESET_TIMER, TIMER_FREEZE } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
-
+//  bughunt
 const MAX = 4;
 const baseValue = 10;
 const difficulties = {
@@ -23,7 +23,6 @@ class GameScreen extends Component {
 
     this.state = {
       index: 0,
-      answerSelected: false,
       isQuestionsShuffleReady: false,
     };
     this.questionsShuffle = 0;
@@ -81,9 +80,6 @@ class GameScreen extends Component {
   }
 
   selectAnswer = () => {
-    this.setState({
-      answerSelected: true,
-    });
     const { disableAnswers } = this.props;
     const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
@@ -113,8 +109,8 @@ class GameScreen extends Component {
     const wrongAnswers = document.querySelectorAll(wrong);
     const correctAnswers = document.getElementById(correct);
     correctAnswers.disabled = state;
-    for (let index = 0; index < wrongAnswers.length; index += 1) {
-      wrongAnswers[index].disabled = state;
+    for (let i = 0; i < wrongAnswers.length; i += 1) {
+      wrongAnswers[i].disabled = state;
     }
   }
 
@@ -147,8 +143,10 @@ class GameScreen extends Component {
   }
 
   questionRender() {
-    const { questions } = this.props;
-    const { index, answerSelected } = this.state;
+    const { questions, isAnswerButtonDisabled } = this.props;
+    const { index } = this.state;
+    const questionFiltred1 = questions[index].question.replace(/&#039;/g, '`');
+    const questionFiltred2 = questionFiltred1.replace(/&quot;/g, '"');
     return (
       <div className="game">
         <h2
@@ -159,7 +157,7 @@ class GameScreen extends Component {
         <h2
           data-testid="question-text"
         >
-          {questions[index].question}
+          {questionFiltred2}
         </h2>
         <div data-testid="answer-options">
           {
@@ -167,7 +165,7 @@ class GameScreen extends Component {
           }
         </div>
         <div>
-          {answerSelected && (
+          {isAnswerButtonDisabled && (
             <button
               type="button"
               onClick={ this.handleClick }
