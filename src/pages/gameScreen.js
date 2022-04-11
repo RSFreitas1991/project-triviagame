@@ -10,7 +10,7 @@ import { SAVE_SCORE,
   SAVE_RIGHT_ANSWERS,
 } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
-//  bughunt
+
 const MAX = 4;
 const baseValue = 10;
 const difficulties = {
