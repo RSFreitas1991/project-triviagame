@@ -12,11 +12,18 @@ class Ranking extends Component {
   setLocalStorage() {
     const { playerName, score, email } = this.props;
     const picture = this.gravatarCall(email);
-    const playersKey = [
-      { name: playerName, score, picture },
-    ];
-    const playersKeyString = JSON.stringify(playersKey);
-    localStorage.setItem('players', playersKeyString);
+    const playersArray = [];
+    const playersKey = { name: playerName, score, picture };
+    playersArray.push(playersKey);
+    const playersKeyString = JSON.stringify(playersArray);
+    if (localStorage.players === undefined) {
+      localStorage.setItem('players', playersKeyString);
+    } else {
+      const localStorageObj = JSON.parse(localStorage.getItem('players'));
+      localStorageObj.push(playersKey);
+      const ObjToString = JSON.stringify(localStorageObj);
+      localStorage.setItem('players', ObjToString);
+    }
   }
 
   gravatarCall(email) {
