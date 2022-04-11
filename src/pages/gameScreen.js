@@ -101,7 +101,6 @@ class GameScreen extends Component {
   handleClick = () => {
     const { history } = this.props;
     const { index } = this.state;
-    console.log('handleClick', index);
     this.resetClassAnswers();
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
@@ -134,7 +133,6 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index } = this.state;
     this.questionsShuffle = this.shuffleAnswers(questions[index]);
-    console.log('questionShuffleFunction', index);
     this.setState({
       isQuestionsShuffleReady: true,
     });

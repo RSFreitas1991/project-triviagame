@@ -33,7 +33,13 @@ class Ranking extends Component {
       const ObjToString = JSON.stringify(localStorageObj);
       localStorage.setItem('players', ObjToString);
     }
-    this.sortingScore();
+    if (JSON.parse(localStorage.getItem('players')).length !== 1) {
+      this.sortingScore();
+    } else {
+      this.setState({
+        isTableReady: true,
+      });
+    }
   }
 
   gravatarCall(email) {
@@ -70,8 +76,8 @@ class Ranking extends Component {
     const rankingTable = rankingObject.map((index) => (
       <tr key={ index.name }>
         <td><img src={ index.picture } alt="player avatar" /></td>
-        <td data-testid={ `players-name${index.name}` }>{index.name}</td>
-        <td data-testid={ `players-name${index.score}` }>{index.score}</td>
+        <td data-testid="player-name-0">{index.name}</td>
+        <td data-testid="player-score-0">{index.score}</td>
       </tr>
     ));
     return rankingTable;

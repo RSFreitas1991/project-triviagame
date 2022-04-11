@@ -8,9 +8,9 @@ import { RESET_LOGIN } from '../reducers/main';
 class GoHome extends Component {
   goHome = () => {
     const { history, resetLogin, clearToken } = this.props;
-    history.push('/');
     resetLogin();
     clearToken();
+    history.push('/');
   }
 
   render() {
