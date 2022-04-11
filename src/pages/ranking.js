@@ -31,6 +31,18 @@ class Ranking extends Component {
     return (`https://www.gravatar.com/avatar/${hash}`);
   }
 
+  rankingTableRender() {
+    const rankingObject = JSON.parse(localStorage.getItem('players'));
+    const rankingTable = rankingObject.map((index) => (
+      <tr key={ index.name }>
+        <td><img src={ index.picture } alt="player avatar" /></td>
+        <td>{index.name}</td>
+        <td>{index.score}</td>
+      </tr>
+    ));
+    return rankingTable;
+  }
+
   render() {
     const { history } = this.props;
     return (
@@ -38,6 +50,18 @@ class Ranking extends Component {
         <h1 data-testid="ranking-title">
           Ranking
         </h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.rankingTableRender()}
+          </tbody>
+        </table>
         <GoHome history={ history } />
       </>
     );
