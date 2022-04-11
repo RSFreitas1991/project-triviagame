@@ -94,12 +94,12 @@ class GameScreen extends Component {
   handleClick = () => {
     const { history } = this.props;
     const { index } = this.state;
+    console.log('handleClick', index);
     this.resetClassAnswers();
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
-    }));
+    }), () => this.questionsShuffleFunction());
     this.resetTimerFunction();
-    this.questionsShuffleFunction();
     if (index === MAX) {
       history.push('/feedback');
     }
@@ -127,6 +127,7 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index } = this.state;
     this.questionsShuffle = this.shuffleAnswers(questions[index]);
+    console.log('questionShuffleFunction', index);
     this.setState({
       isQuestionsShuffleReady: true,
     });
