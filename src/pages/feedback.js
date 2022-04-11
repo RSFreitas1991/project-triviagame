@@ -7,22 +7,20 @@ import PlayAgain from '../components/PlayAgain';
 
 class Feedback extends React.Component {
   render() {
-    const { history, rightAnswers, score } = this.props;
+    const { history, assertions, score } = this.props;
     const three = 3;
-    const answersNumber = parseInt(rightAnswers, 10);
-    const scoreNumber = Number(score);
     return (
       <>
         <div>
           <Header />
           {
-            rightAnswers < three ? <h2 data-testid="feedback-text">Could be better...</h2>
+            assertions < three ? <h2 data-testid="feedback-text">Could be better...</h2>
               : <h2 data-testid="feedback-text">Well Done!</h2>
           }
         </div>
         <div>
-          <h3 data-testid="feedback-total-score">{ scoreNumber }</h3>
-          <h3 data-testid="feedback-total-question">{ answersNumber }</h3>
+          <h3 data-testid="feedback-total-score">{ score }</h3>
+          <h3 data-testid="feedback-total-question">{ assertions }</h3>
         </div>
         <div>
           <GoToRanking history={ history } />
@@ -34,7 +32,7 @@ class Feedback extends React.Component {
 }
 
 Feedback.propTypes = {
-  rightAnswers: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -42,7 +40,7 @@ Feedback.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  rightAnswers: state.player.rightAnswers,
+  assertions: state.player.assertions,
   score: state.player.score,
 });
 

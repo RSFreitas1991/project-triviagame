@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   score: 0,
   resetTimer: false,
   timerFreeze: false,
-  rightAnswers: 0,
+
 };
 
 export const SAVE_EMAIL = 'SAVE_EMAIL';
@@ -41,7 +41,7 @@ function main(state = INITIAL_STATE, action) {
       playerName: '',
     };
   case SAVE_RIGHT_ANSWERS:
-    return { ...state, rightAnswers: action.state };
+    return { ...state, assertions: action.state };
   default:
     return state;
   }
