@@ -13,6 +13,7 @@ export function fetchQuestions(Token) {
     const request = await fetch(`https://opentdb.com/api.php?amount=5&token=${Token}`);
     const response = await request.json();
     dispatch(getQuestions(response.results, SAVE_QUESTIONS));
+    // console.log('chamou a primeira');
   };
 }
 
