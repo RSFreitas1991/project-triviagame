@@ -72,12 +72,15 @@ class Ranking extends Component {
     if (rankingObject === null) {
       return <p>Nenhum jogador</p>;
     }
-    console.log(localStorage.players);
     const rankingTable = rankingObject.map((index) => (
       <tr key={ index.name }>
         <td><img src={ index.picture } alt="player avatar" /></td>
-        <td data-testid="player-name-0">{index.name}</td>
-        <td data-testid="player-score-0">{index.score}</td>
+        <td data-testid={ `player-name-${rankingObject.indexOf(index)}` }>
+          {index.name}
+        </td>
+        <td data-testid={ `player-score-${rankingObject.indexOf(index)}` }>
+          {index.score}
+        </td>
       </tr>
     ));
     return rankingTable;
