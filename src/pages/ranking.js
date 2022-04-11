@@ -5,6 +5,15 @@ import md5 from 'crypto-js/md5';
 import GoHome from '../components/GoHome';
 
 class Ranking extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isTableReady: false,
+    };
+    this.rankingTableRender = this.rankingTableRender.bind(this);
+  }
+
   componentDidMount() {
     this.setLocalStorage();
   }
@@ -24,6 +33,7 @@ class Ranking extends Component {
       const ObjToString = JSON.stringify(localStorageObj);
       localStorage.setItem('players', ObjToString);
     }
+    this.sortingScore();
   }
 
   gravatarCall(email) {
@@ -31,13 +41,37 @@ class Ranking extends Component {
     return (`https://www.gravatar.com/avatar/${hash}`);
   }
 
+  sortingScore() {
+    const object = JSON.parse(localStorage.getItem('players'));
+    let n = 0;
+    while (n < object.length ** 2) {
+      for (let i = 0; i < object.length - 1; i += 1) {
+        if (object[i].score < object[i + 1].score) {
+          const pos1 = object[i];
+          const pos2 = object[i + 1];
+          object[i] = pos2;
+          object[i + 1] = pos1;
+        } else n += 1;
+      }
+    }
+    const ObjToString = JSON.stringify(object);
+    localStorage.setItem('players', ObjToString);
+    this.setState({
+      isTableReady: true,
+    });
+  }
+
   rankingTableRender() {
     const rankingObject = JSON.parse(localStorage.getItem('players'));
+    if (rankingObject === null) {
+      return <p>Nenhum jogador</p>;
+    }
+    console.log(localStorage.players);
     const rankingTable = rankingObject.map((index) => (
       <tr key={ index.name }>
         <td><img src={ index.picture } alt="player avatar" /></td>
-        <td>{index.name}</td>
-        <td>{index.score}</td>
+        <td data-testid={ `players-name${index.name}` }>{index.name}</td>
+        <td data-testid={ `players-name${index.score}` }>{index.score}</td>
       </tr>
     ));
     return rankingTable;
@@ -45,6 +79,7 @@ class Ranking extends Component {
 
   render() {
     const { history } = this.props;
+    const { isTableReady } = this.state;
     return (
       <>
         <h1 data-testid="ranking-title">
@@ -59,7 +94,8 @@ class Ranking extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.rankingTableRender()}
+            {isTableReady && (this.rankingTableRender())}
+
           </tbody>
         </table>
         <GoHome history={ history } />
