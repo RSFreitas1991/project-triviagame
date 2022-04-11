@@ -14,6 +14,7 @@ export const SAVE_SCORE = 'SAVE_SCORE';
 export const RESET_TIMER = 'RESET_TIMER';
 export const TIMER_FREEZE = 'TIMER_FREEZE';
 export const RESET_LOGIN = 'RESET_LOGIN';
+export const SAVE_RIGHT_ANSWERS = 'SAVE_RIGHT_ANSWERS';
 
 function main(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -39,6 +40,8 @@ function main(state = INITIAL_STATE, action) {
       email: '',
       playerName: '',
     };
+  case SAVE_RIGHT_ANSWERS:
+    return { ...state, assertions: action.state };
   default:
     return state;
   }

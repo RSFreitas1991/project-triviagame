@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import Timer from '../components/timer';
 import { newAction } from '../actions';
-import { SAVE_SCORE, RESET_TIMER, TIMER_FREEZE } from '../reducers/main';
+import { SAVE_SCORE,
+  RESET_TIMER,
+  TIMER_FREEZE,
+  SAVE_RIGHT_ANSWERS,
+} from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
 //  bughunt
 const MAX = 4;
@@ -44,13 +48,16 @@ class GameScreen extends Component {
   }
 
   getCorrectAnswer(answer, correctAnswer, difficulty) {
-    const { updateScore, score } = this.props;
+    const { updateScore, score, assertions, updateAnswers } = this.props;
 
     if (answer === correctAnswer) {
       const timer = document.getElementById('timer').innerHTML;
+      const one = 1;
       const pointsEarned = baseValue + (parseInt(timer, 10) * difficulties[difficulty]);
       const totalPointsEarned = pointsEarned + score;
       updateScore(totalPointsEarned, SAVE_SCORE);
+      const totalCorrectAnswers = assertions + one;
+      updateAnswers(totalCorrectAnswers, SAVE_RIGHT_ANSWERS);
     }
   }
 
@@ -209,12 +216,16 @@ const mapStateToProps = (state) => ({
   isAnswerButtonDisabled: state.questions.isAnswerButtonDisabled,
   score: state.player.score,
   resetTimer: state.player.resetTimer,
+  assertions: state.player.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateScore: (score, actionType) => dispatch(newAction(score, actionType)),
   disableAnswers: (state, type) => dispatch(newAction(
     state, type,
+  )),
+  updateAnswers: (assertions, actionType) => dispatch(newAction(
+    assertions, actionType,
   )),
 });
 
@@ -227,6 +238,8 @@ GameScreen.propTypes = {
   }).isRequired,
   score: PropTypes.number.isRequired,
   disableAnswers: PropTypes.func.isRequired,
+  assertions: PropTypes.number.isRequired,
+  updateAnswers: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);

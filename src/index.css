@@ -52,6 +52,7 @@ button {
 
 .fieldset {
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -84,20 +85,22 @@ button {
 .header-superior {
   background-color: rgb(66, 137, 191);
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
+  height: 78px;
 }
 
 .header-player-name {
   display: flex;
-  padding-left: 30px;
   color: white;
+  flex-grow: 1;
+  padding-left: 10px;
 }
 
 .header-score {
   display: flex;
-  padding-left: 70%;
   color: white;
+  width: 130px;
 }
 
 .header-element {
