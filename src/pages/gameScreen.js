@@ -11,6 +11,8 @@ import { SAVE_SCORE,
 } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
 
+import '../css/gameScreen.css';
+
 const MAX = 4;
 const baseValue = 10;
 const difficulties = {
@@ -69,6 +71,8 @@ class GameScreen extends Component {
     //  https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     const questions = shuffle.map((answer, index) => (
       <button
+        data-answer-buttons
+        // className="aswer-buttons"
         key={ answer }
         type="button"
         data-testid={
