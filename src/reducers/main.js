@@ -39,6 +39,8 @@ function main(state = INITIAL_STATE, action) {
       ...state,
       email: '',
       playerName: '',
+      assertions: 0,
+      score: 0,
     };
   case SAVE_RIGHT_ANSWERS:
     return { ...state, assertions: action.state };

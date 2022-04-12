@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 
 import { RESET_LOGIN } from '../reducers/main';
 import { newAction, CLEAR_TOKEN } from '../actions';
+import { RESET_QUESTIONS_SAVED } from '../reducers/questionsReducer';
 
 class PlayAgain extends Component {
   playAgain = () => {
-    const { history, resetLogin, clearToken } = this.props;
-    history.push('/');
+    const { history, resetLogin, clearToken, resetQuestionsSaved } = this.props;
     resetLogin();
     clearToken();
+    resetQuestionsSaved(false, RESET_QUESTIONS_SAVED);
+    history.push('/');
   }
 
   render() {
@@ -34,11 +36,13 @@ PlayAgain.propTypes = {
   }).isRequired,
   resetLogin: PropTypes.func.isRequired,
   clearToken: PropTypes.func.isRequired,
+  resetQuestionsSaved: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   resetLogin: () => dispatch(newAction(null, RESET_LOGIN)),
   clearToken: () => dispatch(newAction('', CLEAR_TOKEN)),
+  resetQuestionsSaved: (state, type) => dispatch(newAction(state, type)),
 });
 
 export default connect(null, mapDispatchToProps)(PlayAgain);

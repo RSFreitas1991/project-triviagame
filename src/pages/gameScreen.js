@@ -10,7 +10,7 @@ import { SAVE_SCORE,
   SAVE_RIGHT_ANSWERS,
 } from '../reducers/main';
 import { CHANGE_BUTTON_STATE } from '../reducers/questionsReducer';
-//  bughunt
+
 const MAX = 4;
 const baseValue = 10;
 const difficulties = {
@@ -101,7 +101,6 @@ class GameScreen extends Component {
   handleClick = () => {
     const { history } = this.props;
     const { index } = this.state;
-    console.log('handleClick', index);
     this.resetClassAnswers();
     this.setState((prev) => ({
       index: prev.index < MAX ? prev.index + 1 : MAX,
@@ -134,7 +133,6 @@ class GameScreen extends Component {
     const { questions } = this.props;
     const { index } = this.state;
     this.questionsShuffle = this.shuffleAnswers(questions[index]);
-    console.log('questionShuffleFunction', index);
     this.setState({
       isQuestionsShuffleReady: true,
     });

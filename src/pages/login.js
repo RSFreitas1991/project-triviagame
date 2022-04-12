@@ -24,11 +24,9 @@ class Login extends React.Component {
 
   componentDidUpdate() {
     const { token, getQuestions, isQuestionsSaved, history } = this.props;
-    // console.log(token.length);
     if (token.length && isQuestionsSaved === false) {
       getQuestions(token);
     }
-    // console.log(isQuestionsSaved);
     if (isQuestionsSaved === true) {
       history.push('/gamescreen');
     }
