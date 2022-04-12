@@ -8,6 +8,8 @@ import { RESET_LOGIN } from '../reducers/main';
 import { newAction, CLEAR_TOKEN } from '../actions';
 import { RESET_QUESTIONS_SAVED } from '../reducers/questionsReducer';
 
+import '../css/feedback.css';
+
 class PlayAgain extends Component {
   playAgain = () => {
     const { history, resetLogin, clearToken, resetQuestionsSaved } = this.props;
@@ -20,6 +22,7 @@ class PlayAgain extends Component {
   render() {
     return (
       <button
+        className="playAgain-button"
         type="button"
         onClick={ this.playAgain }
         data-testid="btn-play-again"

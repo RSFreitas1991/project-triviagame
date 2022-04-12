@@ -1,0 +1,38 @@
+.feedback-container {
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 5rem auto;
+  padding: 2rem 0 3rem;
+  width: 500px;
+}
+
+.goToRanking-button, .playAgain-button {
+  background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+  background-color: #2dabf9;
+  border: 1px solid #0b0e07;
+  border-radius: 3px;
+  box-shadow: inset 0 -3px 7px 0 #29bbff;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial , sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 9px 23px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #263666;
+}
+
+.goToRanking-button:hover, .playAgain-button:hover {
+  background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+  background-color: #0688fa;
+}
+
+.goToRanking-button:active, .playAgain-button:active {
+  position: relative;
+  top: 1px;
+}
+
