@@ -4,11 +4,22 @@
   padding: 0;
 }
 
+.table {
+  margin: auto;
+  width: 1000px;
+}
+
+.table thead, tbody {
+  text-align: center;
+}
+
 .ranking-header {
   align-items: center;
   background-color: lightgray;
   display: flex;
+  margin: auto;
   padding: 2rem;
+  width: 1000px;
 }
 
 .ranking-content {
