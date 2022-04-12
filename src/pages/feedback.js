@@ -5,6 +5,8 @@ import GoToRanking from '../components/GoToRanking';
 import Header from '../components/header';
 import PlayAgain from '../components/PlayAgain';
 
+import '../css/feedback.css';
+
 class Feedback extends React.Component {
   render() {
     const { history, assertions, score } = this.props;
@@ -13,19 +15,21 @@ class Feedback extends React.Component {
       <>
         <div>
           <Header />
+        </div>
+        <section className="feedback-container">
           {
             assertions < three ? <h2 data-testid="feedback-text">Could be better...</h2>
               : <h2 data-testid="feedback-text">Well Done!</h2>
           }
-        </div>
-        <div>
-          <h3 data-testid="feedback-total-score">{ score }</h3>
-          <h3 data-testid="feedback-total-question">{ assertions }</h3>
-        </div>
-        <div>
-          <GoToRanking history={ history } />
-          <PlayAgain history={ history } />
-        </div>
+          <div>
+            <h3 data-testid="feedback-total-score">{ score }</h3>
+            <h3 data-testid="feedback-total-question">{ assertions }</h3>
+          </div>
+          <div>
+            <GoToRanking history={ history } />
+            <PlayAgain history={ history } />
+          </div>
+        </section>
       </>
     );
   }
