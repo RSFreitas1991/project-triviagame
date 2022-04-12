@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import GoHome from '../components/GoHome';
 
+import '../css/ranking.css';
+
 class Ranking extends Component {
   constructor() {
     super();
@@ -72,8 +74,9 @@ class Ranking extends Component {
     if (rankingObject === null) {
       return <p>Nenhum jogador</p>;
     }
-    const rankingTable = rankingObject.map((index) => (
+    const rankingTable = rankingObject.map((index, posicao) => (
       <tr key={ index.name }>
+        <th scope="row">{ posicao }</th>
         <td><img src={ index.picture } alt="player avatar" /></td>
         <td data-testid={ `player-name-${rankingObject.indexOf(index)}` }>
           {index.name}
@@ -91,15 +94,21 @@ class Ranking extends Component {
     const { isTableReady } = this.state;
     return (
       <>
-        <h1 data-testid="ranking-title">
-          Ranking
-        </h1>
-        <table>
-          <thead>
+        <header className="ranking-header">
+          <div className="ranking-content">
+            <h1 data-testid="ranking-title">
+              Ranking
+            </h1>
+            <GoHome history={ history } />
+          </div>
+        </header>
+        <table className="table">
+          <thead className="thead-dark">
             <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Score</th>
+              <th scope="col">#</th>
+              <th scope="col">Avatar</th>
+              <th scope="col">Name</th>
+              <th scope="col">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -107,7 +116,6 @@ class Ranking extends Component {
 
           </tbody>
         </table>
-        <GoHome history={ history } />
       </>
     );
   }

@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ranking-header {
+  align-items: center;
+  background-color: lightgray;
+  display: flex;
+  padding: 2rem;
+}
+
+.ranking-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 1000px;
+}
+
+.ranking-header h1 {
+  font-weight: 900;
+
+}
+
+.ranking-header button {
+  background-color: lightgray;
+  border: none;
+  border-bottom: 1px solid darkgray;
+  color: darkgray;
+  cursor: pointer;
+  height: fit-content;
+  width: 60px;
+}
