@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+.login-input {
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.login-button, .login-settings-button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.9em;
+  font-weight: 900;
+  justify-content: center;
+  padding: 10px 75px;
+  transition: ease-in-out 0.3s;
+}
+
+.login-button {
+  background-color: #ffb30f;
+}
+
+
+.login-button:disabled {
+  background-color: #d9d9d9;
+}
+
+.login-settings-button {
+  background-color: #d9d9d9;
+}
+
+.login-button:not( .login-button:disabled ):hover, .login-settings-button:hover {
+  background-color: #f76c5e;
+}
+
+.login-settings-button a {
+  color: white;
+
+}

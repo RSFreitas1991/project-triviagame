@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { newAction, fetchToken, fetchQuestions } from '../actions';
 import { SAVE_EMAIL, SAVE_PLAYERNAME } from '../reducers/main';
 
+import '../css/login.css';
+
 class Login extends React.Component {
   constructor() {
     super();
