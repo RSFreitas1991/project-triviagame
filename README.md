@@ -1,5 +1,9 @@
 # Trivia Game Project
 
+# Preview do Projeto
+
+
+
 # Contexto
 O objetivo deste projeto é a criação de um jogo de TRIVIA (Perguntas e Respostas).
 
