@@ -1,10 +1,24 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# Trivia Game Project
+
+# Contexto
+O objetivo deste projeto é a criação de um jogo de TRIVIA (Perguntas e Respostas).
+
+## Técnologias usadas
+
+Front-end:
+> Desenvolvido usando: React, Redux, CSS3, HTML5, ES6 e Bootstrap.
+
+## Instalando Dependências
+
+> Frontend
+```bash
+cd src/
+npm install
+``` 
+## Executando aplicação
+
+* Para rodar o front-end:
+
+  ```
+    cd src/ && npm start
+  ```
